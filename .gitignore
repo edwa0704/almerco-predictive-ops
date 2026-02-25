@@ -1,0 +1,9 @@
+# Entorno virtual
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Datos grandes (si luego son reales)
+data/raw/*.csv
