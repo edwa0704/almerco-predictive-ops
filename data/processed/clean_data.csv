@@ -1,0 +1,7 @@
+fecha,producto,categoria,cantidad,precio_venta,costo,producto_norm,product_id
+2026-01-05,Memoria RAM Kingston 8GB,RAM,10.0,120,80,8gb kingston ram,PROD_7f03035ee5
+2026-01-06,RAM 8GB Kingston,RAM,8.0,118,80,8gb kingston ram,PROD_7f03035ee5
+2026-01-07,Ryzen 5 5600,CPU,5.0,850,700,5 5600 ryzen,PROD_4a13c548a6
+2026-01-08,Procesador AMD Ryzen 5 5600,CPU,3.0,840,700,5 5600 amd procesador ryzen,PROD_5b014adc67
+2026-01-09,SSD Kingston 1TB,SSD,7.0,350,250,1tb kingston ssd,PROD_d354fa6382
+2026-01-10,Disco Solido 1TB Kingston,SSD,6.0,340,250,1tb kingston ssd,PROD_d354fa6382
