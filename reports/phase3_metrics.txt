@@ -1,9 +1,10 @@
 PHASE 3 - DEMAND PREDICTION METRICS
-Model: GradientBoostingRegressor
-MAE: 2.4561
-MAPE(%): 39.9595
 
---- FALLBACK MODEL ---
-Model: RandomForestRegressor
-MAE: 2.5978
-MAPE(%): 41.9412
+Modelo: HistGradientBoostingRegressor (sklearn)
+Split temporal (test desde): 2025-10-21
+
+MAE: 2.8945
+MAPE(%): 45.0517  (referencia)
+WMAPE(%): 32.6358 (principal / 'error medio')
+
+Nota: WMAPE es más estable cuando hay días con demanda pequeña.
