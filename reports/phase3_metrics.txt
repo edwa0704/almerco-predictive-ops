@@ -1,0 +1,9 @@
+PHASE 3 - DEMAND PREDICTION METRICS
+Model: GradientBoostingRegressor
+MAE: 2.4561
+MAPE(%): 39.9595
+
+--- FALLBACK MODEL ---
+Model: RandomForestRegressor
+MAE: 2.5978
+MAPE(%): 41.9412
