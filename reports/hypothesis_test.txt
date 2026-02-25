@@ -1,0 +1,3 @@
+Test CPU AMD vs precio placas AMD
+t-statistic: 22.138688169073816
+p-value: 1.232158357778162e-44
