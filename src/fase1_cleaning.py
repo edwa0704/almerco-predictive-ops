@@ -34,6 +34,7 @@ def normalize_product_name(name: str):
     s = re.sub(r"[^a-z0-9\s]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
 
+    # Unificar sinónimos
     s = s.replace("memoria ram", "ram")
     s = s.replace("memoria", "ram")
     s = s.replace("disco solido", "ssd")
@@ -61,7 +62,10 @@ def main() -> None:
 
     df = pd.read_csv(RAW_PATH)
 
+    # Reporte de nulos ANTES
     nulls_before = df.isna().sum().sort_values(ascending=False)
+
+    # Limpieza básica
     df = df.drop_duplicates()
 
     required_cols = ["fecha", "producto", "cantidad", "precio_venta", "costo", "categoria"]
@@ -71,18 +75,42 @@ def main() -> None:
     if missing:
         raise ValueError(f"Faltan columnas requeridas en el CSV: {missing}")
 
-    # Si opcionales no existen, las creamos en 0
+    # Si opcionales no existen, crearlas en 0
     for c in optional_cols:
         if c not in df.columns:
             df[c] = 0
 
-    df_clean = df.dropna(subset=required_cols)
+    # Mantener opcionales y evitar errores de SettingWithCopy
+    df_clean = df.dropna(subset=required_cols).copy()
 
+    # Asegurar opcionales en df_clean (copiando por índice)
+    for c in optional_cols:
+        df_clean[c] = df.loc[df_clean.index, c]
+
+    # Normalización
     df_clean["producto_norm"] = df_clean["producto"].apply(normalize_product_name)
     df_clean = df_clean.dropna(subset=["producto_norm"])
     df_clean = df_clean[df_clean["producto_norm"].str.len() > 0]
 
+    # product_id
     df_clean["product_id"] = df_clean["producto_norm"].apply(make_product_id)
+
+    # Reporte de nulos DESPUÉS
+    nulls_after = df_clean.isna().sum().sort_values(ascending=False)
+
+    # Guardar reporte
+    with open(REPORT_PATH, "w", encoding="utf-8") as f:
+        f.write("REPORTE DE VALORES NULOS - FASE 1\n\n")
+        f.write("NULOS ANTES:\n")
+        f.write(nulls_before.to_string())
+        f.write("\n\nNULOS DESPUÉS:\n")
+        f.write(nulls_after.to_string())
+        f.write("\n\nFilas originales: " + str(len(df)) + "\n")
+        f.write("Filas limpias: " + str(len(df_clean)) + "\n")
+        f.write("Filas eliminadas: " + str(len(df) - len(df_clean)) + "\n")
+
+    # Guardar clean_data.csv (IMPORTANTE)
+    df_clean.to_csv(OUT_PATH, index=False)
 
     print("✅ Fase 1 completada")
     print(f"Archivo limpio: {OUT_PATH}")
