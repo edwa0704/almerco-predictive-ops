@@ -65,9 +65,16 @@ def main() -> None:
     df = df.drop_duplicates()
 
     required_cols = ["fecha", "producto", "cantidad", "precio_venta", "costo", "categoria"]
+    optional_cols = ["promo", "stock_final", "is_holiday"]
+
     missing = [c for c in required_cols if c not in df.columns]
     if missing:
         raise ValueError(f"Faltan columnas requeridas en el CSV: {missing}")
+
+    # Si opcionales no existen, las creamos en 0
+    for c in optional_cols:
+        if c not in df.columns:
+            df[c] = 0
 
     df_clean = df.dropna(subset=required_cols)
 
@@ -76,20 +83,6 @@ def main() -> None:
     df_clean = df_clean[df_clean["producto_norm"].str.len() > 0]
 
     df_clean["product_id"] = df_clean["producto_norm"].apply(make_product_id)
-
-    nulls_after = df_clean.isna().sum().sort_values(ascending=False)
-
-    with open(REPORT_PATH, "w", encoding="utf-8") as f:
-        f.write("REPORTE DE VALORES NULOS - FASE 1\n\n")
-        f.write("NULOS ANTES:\n")
-        f.write(nulls_before.to_string())
-        f.write("\n\nNULOS DESPUÉS:\n")
-        f.write(nulls_after.to_string())
-        f.write("\n\nFilas originales: " + str(len(df)) + "\n")
-        f.write("Filas limpias: " + str(len(df_clean)) + "\n")
-        f.write("Filas eliminadas: " + str(len(df) - len(df_clean)) + "\n")
-
-    df_clean.to_csv(OUT_PATH, index=False)
 
     print("✅ Fase 1 completada")
     print(f"Archivo limpio: {OUT_PATH}")
