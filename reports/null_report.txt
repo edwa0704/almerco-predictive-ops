@@ -5,19 +5,26 @@ fecha           0
 producto        0
 categoria       0
 cantidad        0
+promo           0
+is_holiday      0
 precio_venta    0
 costo           0
+stock_final     0
 
 NULOS DESPUÉS:
 fecha            0
 producto         0
 categoria        0
 cantidad         0
+promo            0
+is_holiday       0
 precio_venta     0
 costo            0
+stock_final      0
+stock_inicial    0
 producto_norm    0
 product_id       0
 
-Filas originales: 2555
-Filas limpias: 2555
+Filas originales: 3000888
+Filas limpias: 3000888
 Filas eliminadas: 0

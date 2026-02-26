@@ -1,10 +1,15 @@
 PHASE 3 - DEMAND PREDICTION METRICS
 
-Modelo: HistGradientBoostingRegressor (sklearn)
-Split temporal (test desde): 2025-10-21
+Granularidad: weekly
+Estrategia: 1 modelo por product_id (HistGradientBoostingRegressor)
+Métrica principal (error medio): WMAPE global ponderado
+WMAPE_global_instock excluye semanas con stockout.
+MAPE se reporta como referencia.
 
-MAE: 2.8945
-MAPE(%): 45.0517  (referencia)
-WMAPE(%): 32.6358 (principal / 'error medio')
+WMAPE_global(%): 22.0049
+WMAPE_global_instock(%): 22.0049
+Productos evaluados: 7
 
-Nota: WMAPE es más estable cuando hay días con demanda pequeña.
+Archivos:
+- reports/phase3_per_product_metrics.csv
+- reports/phase3_predictions_sample.csv

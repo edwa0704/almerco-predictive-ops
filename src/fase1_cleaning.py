@@ -69,7 +69,7 @@ def main() -> None:
     df = df.drop_duplicates()
 
     required_cols = ["fecha", "producto", "cantidad", "precio_venta", "costo", "categoria"]
-    optional_cols = ["promo", "stock_final", "is_holiday"]
+    optional_cols = ["promo", "stock_final", "is_holiday", "stock_inicial"]
 
     missing = [c for c in required_cols if c not in df.columns]
     if missing:

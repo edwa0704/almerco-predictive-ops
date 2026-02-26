@@ -1,9 +1,6 @@
-# Entorno virtual
-.venv/
+# Ignore raw datasets
+data/raw/
+*.csv
 
-# Python
-__pycache__/
-*.pyc
-
-# Datos grandes (si luego son reales)
-data/raw/*.csv
+# Optional: ignore heavy reports
+reports/*.png
