@@ -1,30 +1,33 @@
 REPORTE DE VALORES NULOS - FASE 1
 
 NULOS ANTES:
-fecha           0
-producto        0
-categoria       0
-cantidad        0
-promo           0
-is_holiday      0
-precio_venta    0
-costo           0
-stock_final     0
+fecha            0
+producto         0
+categoria        0
+cantidad         0
+precio_venta     0
+costo            0
+promo            0
+stock_final      0
+is_holiday       0
+stock_inicial    0
+demand_real      0
 
 NULOS DESPUÉS:
 fecha            0
 producto         0
 categoria        0
 cantidad         0
-promo            0
-is_holiday       0
 precio_venta     0
 costo            0
+promo            0
 stock_final      0
+is_holiday       0
 stock_inicial    0
+demand_real      0
 producto_norm    0
 product_id       0
 
-Filas originales: 3000888
-Filas limpias: 3000888
+Filas originales: 2555
+Filas limpias: 2555
 Filas eliminadas: 0

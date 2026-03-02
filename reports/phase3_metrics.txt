@@ -6,9 +6,9 @@ Métrica principal (error medio): WMAPE global ponderado
 WMAPE_global_instock excluye semanas con stockout.
 MAPE se reporta como referencia.
 
-WMAPE_global(%): 22.0049
-WMAPE_global_instock(%): 22.0049
-Productos evaluados: 7
+WMAPE_global(%): 29.5095
+WMAPE_global_instock(%): 24.5390
+Productos evaluados: 4
 
 Archivos:
 - reports/phase3_per_product_metrics.csv

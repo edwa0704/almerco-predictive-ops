@@ -7,14 +7,15 @@ import numpy as np
 import pandas as pd
 
 RAW_PATH = "data/raw/sales_history_raw.csv"
-OUT_PATH = "data/processed/clean_data.csv"
+OUT_PATH = "data/clean_data.csv"          # ✅ sin processed
 REPORT_PATH = "reports/null_report.txt"
 
 
 def ensure_dirs() -> None:
+    # ✅ solo lo necesario (no crea processed)
     os.makedirs("data/raw", exist_ok=True)
-    os.makedirs("data/processed", exist_ok=True)
     os.makedirs("reports", exist_ok=True)
+    os.makedirs("data", exist_ok=True)
 
 
 def strip_accents(text: str) -> str:
@@ -57,7 +58,7 @@ def main() -> None:
     if not os.path.exists(RAW_PATH):
         raise FileNotFoundError(
             f"No se encontró el archivo raw: {RAW_PATH}\n"
-            "Crea data/raw/sales_history_raw.csv primero."
+            "Primero genera el raw con: python src/adapt_favorita_to_raw.py"
         )
 
     df = pd.read_csv(RAW_PATH)
@@ -68,12 +69,16 @@ def main() -> None:
     # Limpieza básica
     df = df.drop_duplicates()
 
+    # ✅ columnas requeridas del esquema estándar
     required_cols = ["fecha", "producto", "cantidad", "precio_venta", "costo", "categoria"]
     optional_cols = ["promo", "stock_final", "is_holiday", "stock_inicial"]
 
     missing = [c for c in required_cols if c not in df.columns]
     if missing:
-        raise ValueError(f"Faltan columnas requeridas en el CSV: {missing}")
+        raise ValueError(
+            f"Faltan columnas requeridas en el CSV: {missing}\n"
+            f"Columnas actuales: {list(df.columns)}"
+        )
 
     # Si opcionales no existen, crearlas en 0
     for c in optional_cols:
@@ -83,7 +88,7 @@ def main() -> None:
     # Mantener opcionales y evitar errores de SettingWithCopy
     df_clean = df.dropna(subset=required_cols).copy()
 
-    # Asegurar opcionales en df_clean (copiando por índice)
+    # Asegurar opcionales en df_clean
     for c in optional_cols:
         df_clean[c] = df.loc[df_clean.index, c]
 
@@ -109,7 +114,7 @@ def main() -> None:
         f.write("Filas limpias: " + str(len(df_clean)) + "\n")
         f.write("Filas eliminadas: " + str(len(df) - len(df_clean)) + "\n")
 
-    # Guardar clean_data.csv (IMPORTANTE)
+    # Guardar clean_data.csv
     df_clean.to_csv(OUT_PATH, index=False)
 
     print("✅ Fase 1 completada")
