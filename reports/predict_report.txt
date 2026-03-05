@@ -1,0 +1,6 @@
+Split date : 2026-08-13
+Train rows : 3874
+Test rows  : 966
+MAPE (%)   : 8.15
+WMAPE (%)  : 7.97
+Features   : ['cat_enc', 'month', 'week', 'day', 'dow', 'is_weekend', 'is_christmas_season', 'is_back_to_school', 'is_end_month', 'promo', 'is_holiday', 'stock_inicial', 'lag_1', 'lag_7', 'lag_14', 'lag_28', 'roll_mean_7', 'roll_mean_28']

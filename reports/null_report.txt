@@ -1,5 +1,7 @@
 REPORTE DE VALORES NULOS - FASE 1
 
+Fuente: data/raw/sales_history_raw.csv
+
 NULOS ANTES:
 fecha            0
 producto         0
@@ -11,7 +13,6 @@ promo            0
 stock_final      0
 is_holiday       0
 stock_inicial    0
-demand_real      0
 
 NULOS DESPUÉS:
 fecha            0
@@ -24,10 +25,9 @@ promo            0
 stock_final      0
 is_holiday       0
 stock_inicial    0
-demand_real      0
 producto_norm    0
 product_id       0
 
-Filas originales: 2555
-Filas limpias: 2555
-Filas eliminadas: 0
+Filas originales : 5110
+Filas limpias    : 5036
+Filas eliminadas : 74

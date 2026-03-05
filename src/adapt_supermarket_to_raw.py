@@ -1,15 +1,17 @@
 import os
 import pandas as pd
 
-IN_PATH = "data/raw/source/supermarket_sales.csv"
+IN_PATH = "data/raw/supermarket_sales.csv"
 OUT_PATH = "data/raw/sales_history_raw.csv"
 
 def main():
     if not os.path.exists(IN_PATH):
         raise FileNotFoundError(f"No existe: {IN_PATH}")
 
-    df = pd.read_csv(IN_PATH)
-
+    # Cambia la línea 11 por estas dos:
+    df = pd.read_csv(IN_PATH, sep=None, engine='python')
+    df.columns = df.columns.str.strip()  # Elimina espacios fantasmas como "Date "
+    print("Columnas reales en el archivo:", df.columns.tolist())
     out = pd.DataFrame()
 
     out["fecha"] = pd.to_datetime(df["Date"]).dt.strftime("%Y-%m-%d")
