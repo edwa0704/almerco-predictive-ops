@@ -220,6 +220,32 @@ Ya resuelto. El proyecto usa backend Agg (guarda PNG, no abre ventana).
 UnicodeEncodeError en Windows
 Ya resuelto. Todos los archivos usan encoding="utf-8".
 
+Bitacora de ejecucion — Fase 4 (`dynamic_pricing.py`)
+
+Nota: **13 / 20**
+
+### Resumen de incidencias
+
+| # | Error | Causa raiz | Solucion aplicada |
+|---|-------|------------|-------------------|
+| 1 | `ModuleNotFoundError: No module named 'tensorflow'` | TensorFlow no estaba listado en `requirements.txt` y nunca se instalo en el entorno virtual. | Se ejecuto `pip install tensorflow` dentro del venv y se agrego la dependencia a `requirements.txt`. |
+| 2 | `ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory` — ruta extremadamente larga dentro de `tensorflow/include/external/...` | Windows tiene un limite de 260 caracteres por ruta (MAX_PATH). TensorFlow contiene headers con rutas que superan ese limite. La clave de registro `LongPathsEnabled` estaba en **0** (deshabilitado). | Se habilito Windows Long Paths con: `Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1` ejecutado como administrador. Tras esto, `pip install tensorflow` completo sin errores. |
+| 3 | El venv no estaba activo en la terminal donde se ejecutaba el script. | Se abrio una nueva terminal sin activar el entorno virtual; `which python` apuntaba al Python del sistema (`AppData/Local/Programs/Python/Python313`) en vez del `.venv`. | Se activo el venv con `source .venv/Scripts/activate` antes de ejecutar pip e instalar. |
+
+### Cronologia del debug
+
+1. **Intento inicial** — `python src/dynamic_pricing.py` fallo con `ModuleNotFoundError: No module named 'tensorflow'`.
+2. **Primera instalacion (sistema)** — `pip install tensorflow` se ejecuto sin el venv activo, instalando las dependencias en el Python global. Se cancelo a medio camino (Operation cancelled by user).
+3. **Activacion del venv** — Se verifico con `which python` que el entorno apuntaba al sistema. Se activo el venv correctamente.
+4. **Segunda instalacion (venv)** — `pip install tensorflow` dentro del venv fallo por `OSError: [Errno 2]` debido a las rutas largas de los headers de TensorFlow.
+5. **Habilitacion de Long Paths** — Se detecto que `LongPathsEnabled = 0`. Se elevo a administrador y se cambio a `1` via PowerShell.
+6. **Tercera instalacion (exitosa)** — `pip install tensorflow` completo sin errores. Se verifico con `pip show tensorflow` → version 2.20.0.
+7. **Ejecucion final** — `python src/dynamic_pricing.py` termino correctamente: DemandNet y PricingNet entrenadas, modelos guardados, graficos generados.
+
+### Leccion aprendida
+
+> En Windows, cualquier proyecto que use TensorFlow requiere habilitar **Windows Long Paths** antes de instalar el paquete. Agregar `tensorflow` al `requirements.txt` desde el inicio evita que otros miembros del equipo enfrenten el mismo error de modulo faltante.
+
 Autor
 Frank Edwar Perez Bustillos
 Ingenieria de Programacion, IA y Software
