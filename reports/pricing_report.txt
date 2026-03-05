@@ -1,0 +1,20 @@
+FASE 4 - RED NEURONAL DE PRICING DINAMICO
+==================================================
+
+Dataset      : data/clean_data.csv
+Filas        : 5036
+Categorias   : 5
+
+-- DemandNet --
+  MAPE  : 12.82%
+  WMAPE : 10.68%
+
+-- PricingNet --
+  MAE precio : 63.13
+
+-- Precios recomendados --
+  CPU_AMD: 1269.27 -> 1050.00
+  CPU_INTEL: 697.76 -> 1087.15
+  MB_AMD: 524.26 -> 509.52
+  RAM: 102.12 -> 84.00
+  SSD: 314.95 -> 263.60

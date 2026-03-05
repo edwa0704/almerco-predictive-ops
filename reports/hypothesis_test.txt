@@ -1,3 +1,3 @@
-Test CPU AMD vs precio placas AMD
-t-statistic: nan
-p-value: nan
+Test CPU_AMD vs precio MB_AMD
+t-statistic: 6.789928761289068
+p-value: 1.1627235181638178e-10
