@@ -5,16 +5,20 @@ Dataset      : data/clean_data.csv
 Filas        : 5036
 Categorias   : 5
 
--- DemandNet --
-  MAPE  : 12.82%
-  WMAPE : 10.68%
+Loss personalizada (StockoutAwareLoss):
+  Stockout penalty : x3.0
+  Cheap penalty    : x2.0
 
--- PricingNet --
-  MAE precio : 63.13
+DemandNet:
+  MAPE  : 11.09%
+  WMAPE : 9.61%
 
--- Precios recomendados --
-  CPU_AMD: 1269.27 -> 1050.00
-  CPU_INTEL: 697.76 -> 1087.15
-  MB_AMD: 524.26 -> 509.52
-  RAM: 102.12 -> 84.00
-  SSD: 314.95 -> 263.60
+PricingNet:
+  MAE precio : 49.13
+
+Precios sugeridos:
+  CPU_AMD: stock=26 demanda=12.0 precio 1269.27 -> 1050.00
+  CPU_INTEL: stock=1 demanda=2.3 precio 697.76 -> 1145.67
+  MB_AMD: stock=14 demanda=12.6 precio 524.26 -> 487.74
+  RAM: stock=39 demanda=20.1 precio 102.12 -> 84.00
+  SSD: stock=11 demanda=12.4 precio 314.95 -> 265.93
